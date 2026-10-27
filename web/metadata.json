@@ -1,0 +1,6 @@
+{
+  "name": "Mi Tiendita - Control de Stock & Asistente Papelito",
+  "description": "Sistema fácil de control de inventario, stock y vencimientos para tiendas y bodegas, con descarga en Excel y PDF y asistente Papelito.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

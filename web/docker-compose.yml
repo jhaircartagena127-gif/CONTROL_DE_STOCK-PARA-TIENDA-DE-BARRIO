@@ -1,0 +1,47 @@
+version: '3.8'
+
+# =======================================================
+# Docker Compose: Tiendita de Barrio & MongoDB Atlas
+# =======================================================
+# Para arrancar todo:
+#   docker compose up -d
+# Para ver los logs:
+#   docker compose logs -f
+# Para detener:
+#   docker compose down
+# =======================================================
+
+services:
+  tiendita-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: tiendita_app
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=3000
+      - NODE_ENV=development
+      # Pega aquí tu enlace de MongoDB Atlas obtenido en mongodb.com:
+      - MONGODB_URI=${MONGODB_URI:-}
+      # Opcional: clave de Gemini API para el asistente Papelito:
+      - GEMINI_API_KEY=${GEMINI_API_KEY:-}
+    volumes:
+      # Mantiene sincronizado el almacenamiento de respaldo local
+      - ./.papelito_db.json:/app/.papelito_db.json
+    restart: unless-stopped
+
+  # OPCIONAL: Si deseas tener una base de datos MongoDB local en tu computadora sin usar Atlas:
+  # mongo-local:
+  #   image: mongo:7.0
+  #   container_name: tiendita_mongo_local
+  #   restart: unless-stopped
+  #   ports:
+  #     - "27017:27017"
+  #   environment:
+  #     - MONGO_INITDB_DATABASE=tienda_papelito
+  #   volumes:
+  #     - mongo_data:/data/db
+
+# volumes:
+#   mongo_data:
